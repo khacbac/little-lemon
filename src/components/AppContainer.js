@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { AppColors } from "../assests";
 
 export const AppContainer = ({ children, style, safeArea = "all" }) => {
   const { bottom, top } = useSafeAreaInsets();
@@ -18,5 +19,5 @@ export const AppContainer = ({ children, style, safeArea = "all" }) => {
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: { flex: 1, backgroundColor: AppColors.white },
 });

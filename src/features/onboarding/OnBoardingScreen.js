@@ -7,7 +7,7 @@ import { useOnBoardingScreen } from "./useOnBoardingScreen";
 
 export const OnBoardingScreen = () => {
   const { top } = useSafeAreaInsets();
-  const { states } = useOnBoardingScreen();
+  const { states, funcs } = useOnBoardingScreen();
 
   const renderLogo = () => {
     return (
@@ -38,7 +38,11 @@ export const OnBoardingScreen = () => {
         </View>
       </View>
       <View style={styles.footer}>
-        <AppButton text={"Next"} style={styles.button} />
+        <AppButton
+          text={"Next"}
+          style={styles.button}
+          onPress={funcs.onSubmit}
+        />
       </View>
     </AppContainer>
   );

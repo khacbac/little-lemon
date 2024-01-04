@@ -8,4 +8,5 @@ export const AppColors = {
   black: "#000000",
   text: "#111111",
   background: "#CBD2D9",
+  white: "#FFFFFF",
 };
