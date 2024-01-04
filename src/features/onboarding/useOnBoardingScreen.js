@@ -1,6 +1,7 @@
-import { useNavigation } from "@react-navigation/native";
+import { StackActions, useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import { validateEmail } from "../../utils";
+import { AppStorageKeys, AppStorageService } from "../../services/AppStorage";
 
 export const useOnBoardingScreen = () => {
   const navigation = useNavigation();
@@ -19,7 +20,11 @@ export const useOnBoardingScreen = () => {
     if (!isValidEmail()) {
       return;
     }
-    navigation.navigate("Profile");
+    navigation.dispatch(StackActions.replace("Profile"));
+    AppStorageService.storeData(
+      AppStorageKeys.AUTH,
+      JSON.stringify({ isOnboardingCompleted: true })
+    );
   };
 
   return {
