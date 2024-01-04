@@ -4,6 +4,7 @@ import { AppButton, AppContainer, AppInput } from "../../components";
 import { AppColors, AppImages } from "../../assests";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useOnBoardingScreen } from "./useOnBoardingScreen";
+import { validateEmail } from "../../utils";
 
 export const OnBoardingScreen = () => {
   const { top } = useSafeAreaInsets();
@@ -22,7 +23,7 @@ export const OnBoardingScreen = () => {
       {renderLogo()}
       <View style={styles.contentWrapper}>
         <Text style={styles.title}>Let us get to know you</Text>
-        <View>
+        <View style={{ flex: 1, justifyContent: "center" }}>
           <AppInput
             label={"First Name"}
             value={states.firstName}
@@ -34,6 +35,7 @@ export const OnBoardingScreen = () => {
             value={states.email}
             onChangeText={states.setEmail}
             inputMode={"email"}
+            isError={states.email && !funcs.isValidEmail()}
           />
         </View>
       </View>
@@ -42,6 +44,7 @@ export const OnBoardingScreen = () => {
           text={"Next"}
           style={styles.button}
           onPress={funcs.onSubmit}
+          disabled={!funcs.isValidForm()}
         />
       </View>
     </AppContainer>
@@ -57,13 +60,13 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 36,
     justifyContent: "space-between",
-    paddingTop: 48,
+    paddingTop: 72,
     paddingBottom: 36,
   },
   title: { fontSize: 18, alignSelf: "center", fontWeight: "500" },
   footer: {
     backgroundColor: AppColors.secondary3,
-    paddingVertical: 36,
+    paddingVertical: 48,
     paddingHorizontal: 24,
   },
   button: {

@@ -9,13 +9,18 @@ export const AppInput = ({
   value,
   onChangeText,
   inputMode,
+  isError = false,
 }) => {
   return (
     <View style={[styles.container, style]}>
-      {!!label && <Text style={styles.label}>{label}</Text>}
+      {!!label && (
+        <Text style={[styles.label, isError && styles.labelError]}>
+          {label}
+        </Text>
+      )}
       <TextInput
         placeholder={placeholder}
-        style={styles.input}
+        style={[styles.input, isError && styles.error]}
         value={value}
         onChangeText={onChangeText}
         inputMode={inputMode}
@@ -41,5 +46,11 @@ const styles = StyleSheet.create({
     borderColor: AppColors.text,
     color: AppColors.text,
     fontSize: 16,
+  },
+  error: {
+    borderColor: "red",
+  },
+  labelError: {
+    color: "red",
   },
 });
