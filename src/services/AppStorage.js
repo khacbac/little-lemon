@@ -5,6 +5,14 @@ export const AppStorageKeys = {
   USER: "USER",
 };
 export class AppStorageService {
+  static removeData = async (key) => {
+    try {
+      await AsyncStorage.removeItem(key);
+    } catch (e) {
+      // saving error
+    }
+  };
+
   static storeData = async (key, value) => {
     try {
       await AsyncStorage.setItem(key, value);

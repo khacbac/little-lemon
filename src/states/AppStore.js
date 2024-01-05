@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useReducer } from "react";
 import {} from "react-native";
+import { AppStorageKeys, AppStorageService } from "../services/AppStorage";
 
 const initialState = {
   auth: { isLoggedIn: false },
@@ -9,6 +10,7 @@ export const AppStoreContext = createContext({
   ...initialState,
   onLoggedIn: (user) => {},
   onUpdateUser: (user) => {},
+  onLoggedOut: () => {},
 });
 
 function reducer(state, action) {
@@ -26,6 +28,17 @@ export const AppStoreProvider = ({ children }) => {
 
   const onLoggedIn = (user) => {
     dispatch({ type: "UPDATE", user, auth: { isLoggedIn: true } });
+    AppStorageService.storeData(
+      AppStorageKeys.AUTH,
+      JSON.stringify({ isLoggedIn: true })
+    );
+    AppStorageService.storeData(AppStorageKeys.USER, JSON.stringify(user));
+  };
+
+  const onLoggedOut = () => {
+    dispatch({ type: "UPDATE", user: null, auth: { isLoggedIn: false } });
+    AppStorageService.removeData(AppStorageKeys.AUTH);
+    AppStorageService.removeData(AppStorageKeys.USER);
   };
 
   const onUpdateUser = (user) => {
@@ -33,7 +46,9 @@ export const AppStoreProvider = ({ children }) => {
   };
 
   return (
-    <AppStoreContext.Provider value={{ ...state, onLoggedIn, onUpdateUser }}>
+    <AppStoreContext.Provider
+      value={{ ...state, onLoggedIn, onUpdateUser, onLoggedOut }}
+    >
       {children}
     </AppStoreContext.Provider>
   );

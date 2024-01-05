@@ -3,9 +3,10 @@ import { StyleSheet, Text, View, ScrollView, Image } from "react-native";
 import { AppButton, AppContainer, AppInput } from "../../components";
 import { useAppStore } from "../../states";
 import { AppColors, AppImages } from "../../assests";
+import { useProfileScreen } from "./useProfileScreen";
 
 export const ProfileScreen = () => {
-  const { auth, user } = useAppStore();
+  const { funcs } = useProfileScreen();
   return (
     <AppContainer style={{ paddingHorizontal: 16 }}>
       <ScrollView>
@@ -58,6 +59,7 @@ export const ProfileScreen = () => {
             paddingVertical: 8,
           }}
           textStyle={{ color: AppColors.white }}
+          onPress={funcs.handleLogout}
         />
         <View style={{ flexDirection: "row" }}>
           <AppButton
