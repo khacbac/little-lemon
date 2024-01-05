@@ -1,8 +1,9 @@
 import React from "react";
 import { Image, Text, View } from "react-native";
 import { AppImages } from "../assests";
+import { getRemoteImages } from "../utils";
 
-export const AppCardItem = ({ style }) => {
+export const AppCardItem = ({ style, menu }) => {
   return (
     <View
       style={[
@@ -11,7 +12,7 @@ export const AppCardItem = ({ style }) => {
       ]}
     >
       <View style={{ flex: 1 }}>
-        <Text style={{ fontWeight: "600", fontSize: 16 }}>Greek Salad</Text>
+        <Text style={{ fontWeight: "600", fontSize: 16 }}>{menu.name}</Text>
         <Text
           style={{
             fontWeight: "400",
@@ -19,16 +20,16 @@ export const AppCardItem = ({ style }) => {
             lineHeight: 18,
             marginTop: 8,
           }}
+          numberOfLines={2}
         >
-          The famous greek salad of crispy letture, pepers, olives and our
-          Chica...
+          {menu.description}
         </Text>
         <Text style={{ fontWeight: "500", fontSize: 12, marginTop: 8 }}>
-          $12.19
+          {`$${menu.price}`}
         </Text>
       </View>
       <Image
-        source={AppImages.bruschetta}
+        source={getRemoteImages(menu.image)}
         style={{ width: 60, height: 60, borderRadius: 8, marginLeft: 8 }}
       />
     </View>

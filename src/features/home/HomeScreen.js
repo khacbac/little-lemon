@@ -17,7 +17,7 @@ const FILTER_TEXTS = ["Starters", "Mains", "Desserts", "Sides"];
 
 export const HomeScreen = () => {
   const { top } = useSafeAreaInsets();
-  const { funcs } = useHomeScreen();
+  const { funcs, states } = useHomeScreen();
 
   const renderHeader = () => {
     return (
@@ -97,12 +97,14 @@ export const HomeScreen = () => {
   };
 
   return (
-    <AppContainer safeArea="none">
+    <AppContainer safeArea="bottom">
       {renderHeader()}
       <ScrollView showsVerticalScrollIndicator={false}>
         {renderTopView()}
         {renderFilter()}
-        <AppCardItem style={{ paddingHorizontal: 16 }} />
+        {states.menus.map((menu) => {
+          return <AppCardItem style={{ paddingHorizontal: 16 }} menu={menu} />;
+        })}
       </ScrollView>
     </AppContainer>
   );
