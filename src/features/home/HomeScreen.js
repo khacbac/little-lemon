@@ -1,6 +1,7 @@
 import React from "react";
 import {
   Image,
+  Pressable,
   ScrollView,
   StyleSheet,
   Text,
@@ -10,17 +11,22 @@ import {
 import { AppButton, AppCardItem, AppContainer } from "../../components";
 import { AppColors, AppImages } from "../../assests";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useHomeScreen } from "./useHomeScreen";
 
 const FILTER_TEXTS = ["Starters", "Mains", "Desserts", "Sides"];
 
 export const HomeScreen = () => {
   const { top } = useSafeAreaInsets();
+  const { funcs } = useHomeScreen();
+
   const renderHeader = () => {
     return (
       <View style={[styles.headerWrapper, { paddingTop: top }]}>
         <View style={styles.headerContent}>
           <Image source={AppImages.logo} />
-          <Image source={AppImages.profile} style={styles.profile} />
+          <Pressable style={styles.profileWrapper} onPress={funcs.gotoProfile}>
+            <Image source={AppImages.profile} style={styles.profile} />
+          </Pressable>
         </View>
       </View>
     );
@@ -109,7 +115,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  profile: { width: 48, height: 48, position: "absolute", right: 16 },
+  profileWrapper: { position: "absolute", right: 16 },
+  profile: { width: 48, height: 48 },
   topView: {
     paddingHorizontal: 16,
     paddingVertical: 16,
