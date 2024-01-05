@@ -1,6 +1,5 @@
 import React from "react";
 import { Image, Text, View } from "react-native";
-import { AppImages } from "../assests";
 import { getRemoteImages } from "../utils";
 
 export const AppCardItem = ({ style, menu }) => {

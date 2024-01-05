@@ -1,6 +1,7 @@
 import React from "react";
 import {
   Image,
+  Keyboard,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -13,7 +14,12 @@ import { AppColors, AppImages } from "../../assests";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useHomeScreen } from "./useHomeScreen";
 
-const FILTER_TEXTS = ["Starters", "Mains", "Desserts", "Sides"];
+const FILTER_TEXTS = [
+  { text: "Starters", key: "starters" },
+  { text: "Mains", key: "mains" },
+  { text: "Desserts", key: "desserts" },
+  { text: "Sides", key: "sides" },
+];
 
 export const HomeScreen = () => {
   const { top } = useSafeAreaInsets();
@@ -49,7 +55,11 @@ export const HomeScreen = () => {
             style={{ width: 120, height: 150, borderRadius: 16 }}
           />
         </View>
-        <TextInput style={styles.input} />
+        <TextInput
+          style={styles.input}
+          value={states.search}
+          onChangeText={states.setSearch}
+        />
       </View>
     );
   };
@@ -69,16 +79,31 @@ export const HomeScreen = () => {
             }}
           >
             {FILTER_TEXTS.map((val, i) => {
+              const isSelected = states.filters.some((e) => e.key === val.key);
               return (
                 <AppButton
-                  text={val}
-                  key={val}
+                  text={val.text}
+                  key={val.key}
                   style={{
                     paddingHorizontal: 8,
                     paddingVertical: 4,
-                    backgroundColor: AppColors.secondary3,
+                    backgroundColor: isSelected
+                      ? AppColors.primary1
+                      : AppColors.secondary3,
                     flex: 1,
                     marginLeft: i === 0 ? 0 : 6,
+                  }}
+                  textStyle={{
+                    color: isSelected ? AppColors.white : AppColors.text,
+                  }}
+                  onPress={() => {
+                    if (isSelected) {
+                      states.setFilters((prev) =>
+                        prev.filter((e) => e.key !== val.key)
+                      );
+                      return;
+                    }
+                    states.setFilters((prev) => [...prev, val]);
                   }}
                 />
               );
@@ -99,11 +124,20 @@ export const HomeScreen = () => {
   return (
     <AppContainer safeArea="bottom">
       {renderHeader()}
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        onScrollBeginDrag={Keyboard.dismiss}
+      >
         {renderTopView()}
         {renderFilter()}
-        {states.menus.map((menu) => {
-          return <AppCardItem style={{ paddingHorizontal: 16 }} menu={menu} />;
+        {states.displayMenus.map((menu) => {
+          return (
+            <AppCardItem
+              key={menu.name}
+              style={{ paddingHorizontal: 16 }}
+              menu={menu}
+            />
+          );
         })}
       </ScrollView>
     </AppContainer>
