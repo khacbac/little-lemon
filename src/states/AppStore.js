@@ -42,7 +42,9 @@ export const AppStoreProvider = ({ children }) => {
   };
 
   const onUpdateUser = (user) => {
-    dispatch({ type: "UPDATE", user: { ...state.user, ...user } });
+    const newUser = { ...state.user, ...user };
+    dispatch({ type: "UPDATE", user: newUser });
+    AppStorageService.storeData(AppStorageKeys.USER, JSON.stringify(newUser));
   };
 
   return (

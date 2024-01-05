@@ -6,7 +6,7 @@ import { AppColors, AppImages } from "../../assests";
 import { useProfileScreen } from "./useProfileScreen";
 
 export const ProfileScreen = () => {
-  const { funcs } = useProfileScreen();
+  const { funcs, states } = useProfileScreen();
   return (
     <AppContainer style={{ paddingHorizontal: 16 }}>
       <ScrollView>
@@ -23,6 +23,9 @@ export const ProfileScreen = () => {
             lablePosition="left"
             inputStyle={{ borderWidth: 1 }}
             labelStyle={{ fontSize: 14, color: AppColors.secondary4 }}
+            value={states.firstName}
+            onChangeText={states.setFirstName}
+            isError={!states.firstName}
           />
 
           <AppInput
@@ -31,6 +34,8 @@ export const ProfileScreen = () => {
             style={{ marginTop: 8 }}
             inputStyle={{ borderWidth: 1 }}
             labelStyle={{ fontSize: 14, color: AppColors.secondary4 }}
+            value={states.lastName}
+            onChangeText={states.setLastName}
           />
 
           <AppInput
@@ -40,6 +45,9 @@ export const ProfileScreen = () => {
             style={{ marginTop: 8 }}
             inputStyle={{ borderWidth: 1 }}
             labelStyle={{ fontSize: 14, color: AppColors.secondary4 }}
+            value={states.email}
+            onChangeText={states.setEmail}
+            isError={!states.email}
           />
 
           <AppInput
@@ -49,46 +57,35 @@ export const ProfileScreen = () => {
             style={{ marginTop: 8 }}
             inputStyle={{ borderWidth: 1 }}
             labelStyle={{ fontSize: 14, color: AppColors.secondary4 }}
+            value={states.phone}
+            onChangeText={states.setPhone}
           />
         </View>
+        <AppButton
+          text={"Save changes"}
+          style={{
+            marginTop: 24,
+            backgroundColor: AppColors.primary1,
+            flex: 1,
+            paddingHorizontal: 0,
+            paddingVertical: 8,
+          }}
+          textStyle={{ color: AppColors.white, fontSize: 16 }}
+          onPress={funcs.onSubmit}
+        />
         <AppButton
           text={"Log out"}
           style={{
             marginTop: 24,
-            backgroundColor: AppColors.primary1,
+            borderColor: AppColors.primary1,
+            backgroundColor: AppColors.transparent,
             paddingVertical: 8,
+            borderWidth: 1,
           }}
-          textStyle={{ color: AppColors.white }}
+          textStyle={{ color: AppColors.text }}
           onPress={funcs.handleLogout}
+          disabled={!states.email || !states.firstName}
         />
-        <View style={{ flexDirection: "row" }}>
-          <AppButton
-            text={"Discard changes"}
-            style={{
-              marginTop: 24,
-              backgroundColor: AppColors.primary1,
-              flex: 1,
-              paddingHorizontal: 0,
-              paddingVertical: 8,
-              backgroundColor: AppColors.transparent,
-              borderWidth: 1,
-              borderColor: AppColors.secondary4,
-            }}
-            textStyle={{ color: AppColors.text, fontSize: 16 }}
-          />
-          <AppButton
-            text={"Save changes"}
-            style={{
-              marginTop: 24,
-              backgroundColor: AppColors.primary1,
-              marginLeft: 16,
-              flex: 1,
-              paddingHorizontal: 0,
-              paddingVertical: 8,
-            }}
-            textStyle={{ color: AppColors.white, fontSize: 16 }}
-          />
-        </View>
       </ScrollView>
     </AppContainer>
   );
