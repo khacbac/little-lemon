@@ -10,11 +10,18 @@ export const AppInput = ({
   onChangeText,
   inputMode,
   isError = false,
+  lablePosition = "center",
 }) => {
   return (
     <View style={[styles.container, style]}>
       {!!label && (
-        <Text style={[styles.label, isError && styles.labelError]}>
+        <Text
+          style={[
+            styles.label,
+            { alignSelf: lablePosition === "left" ? "flex-start" : "center" },
+            isError && styles.labelError,
+          ]}
+        >
           {label}
         </Text>
       )}
