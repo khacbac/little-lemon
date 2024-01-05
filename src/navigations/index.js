@@ -1,5 +1,5 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { OnBoardingScreen, ProfileScreen } from "../features";
+import { HomeScreen, OnBoardingScreen, ProfileScreen } from "../features";
 import { useAppStore } from "../states";
 import { useEffect, useState } from "react";
 import { AppStorageKeys, AppStorageService } from "../services/AppStorage";
@@ -47,7 +47,14 @@ export const AppNavigationContainer = () => {
         />
       )}
       {auth?.isLoggedIn && (
-        <Stack.Screen name="Profile" component={ProfileScreen} options={{}} />
+        <Stack.Group navigationKey="LoggedIn">
+          <Stack.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen name="Profile" component={ProfileScreen} options={{}} />
+        </Stack.Group>
       )}
     </Stack.Navigator>
   );
