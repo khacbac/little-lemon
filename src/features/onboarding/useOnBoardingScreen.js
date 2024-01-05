@@ -25,7 +25,11 @@ export const useOnBoardingScreen = () => {
     onLoggedIn({ firstName, email });
     AppStorageService.storeData(
       AppStorageKeys.AUTH,
-      JSON.stringify({ isOnboardingCompleted: true })
+      JSON.stringify({ isLoggedIn: true })
+    );
+    AppStorageService.storeData(
+      AppStorageKeys.USER,
+      JSON.stringify({ firstName, email })
     );
   };
 

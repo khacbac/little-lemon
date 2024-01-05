@@ -2,6 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const AppStorageKeys = {
   AUTH: "AUTH",
+  USER: "USER",
 };
 export class AppStorageService {
   static storeData = async (key, value) => {
@@ -17,6 +18,24 @@ export class AppStorageService {
       const value = await AsyncStorage.getItem(key);
       if (value) {
         return JSON.parse(value);
+      }
+      return null;
+    } catch (e) {
+      // error reading value
+      return null;
+    }
+  };
+
+  static getDatas = async (keys = []) => {
+    try {
+      const values = await AsyncStorage.multiGet(keys);
+      if (values) {
+        return values.map((e) => {
+          if (e[1]) {
+            return [e[0], JSON.parse(e[1])];
+          }
+          return e;
+        });
       }
       return null;
     } catch (e) {
