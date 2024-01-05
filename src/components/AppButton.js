@@ -2,7 +2,13 @@ import React from "react";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import { AppColors } from "../assests";
 
-export const AppButton = ({ text, onPress, style, disabled = false }) => {
+export const AppButton = ({
+  text,
+  onPress,
+  style,
+  textStyle,
+  disabled = false,
+}) => {
   return (
     <TouchableOpacity
       activeOpacity={disabled ? 1 : 0.7}
@@ -11,7 +17,9 @@ export const AppButton = ({ text, onPress, style, disabled = false }) => {
         onPress,
       })}
     >
-      <Text style={[styles.text, disabled && styles.disable]}>{text}</Text>
+      <Text style={[styles.text, textStyle, disabled && styles.disable]}>
+        {text}
+      </Text>
     </TouchableOpacity>
   );
 };

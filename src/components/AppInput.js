@@ -4,6 +4,8 @@ import { AppColors } from "../assests";
 
 export const AppInput = ({
   style,
+  inputStyle,
+  labelStyle,
   label,
   placeholder = "",
   value,
@@ -11,6 +13,7 @@ export const AppInput = ({
   inputMode,
   isError = false,
   lablePosition = "center",
+  keyboardType,
 }) => {
   return (
     <View style={[styles.container, style]}>
@@ -19,6 +22,7 @@ export const AppInput = ({
           style={[
             styles.label,
             { alignSelf: lablePosition === "left" ? "flex-start" : "center" },
+            labelStyle,
             isError && styles.labelError,
           ]}
         >
@@ -27,10 +31,11 @@ export const AppInput = ({
       )}
       <TextInput
         placeholder={placeholder}
-        style={[styles.input, isError && styles.error]}
+        style={[styles.input, inputStyle, isError && styles.error]}
         value={value}
         onChangeText={onChangeText}
         inputMode={inputMode}
+        keyboardType={keyboardType}
       />
     </View>
   );

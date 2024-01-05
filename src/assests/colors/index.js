@@ -9,4 +9,5 @@ export const AppColors = {
   text: "#111111",
   background: "#CBD2D9",
   white: "#FFFFFF",
+  transparent: "#00000000",
 };
